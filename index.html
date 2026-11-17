@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f8f5">
-  <title>PeerConnect — good work starts close to home</title>
+  <title>PeerConnect — find your people, make good things</title>
   <style>
     :root {
       color-scheme: light;
@@ -125,6 +125,27 @@
     .opportunity-band p { z-index: 1; margin: 8px 0 0; color: #d4dfd6; font-size: 12px; }
     .opportunity-band .outline-button { z-index: 1; color: var(--green); background: #f7f7f0; border: 0; }
 
+    .plans-section { padding: 8px 0 72px; }
+    .plans-intro { max-width: 570px; margin: 0 auto 28px; text-align: center; }
+    .plans-intro .eyebrow { justify-content: center; }
+    .plans-intro h2 { margin: 12px 0 9px; font-family: Georgia, "Times New Roman", serif; font-size: 34px; font-weight: 500; letter-spacing: -.9px; }
+    .plans-intro p { margin: 0; color: #7d857d; font-size: 13px; line-height: 1.65; }
+    .plans-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 850px; margin: 0 auto; }
+    .plan-card { position: relative; padding: 25px; background: white; border: 1px solid #e5e9e3; border-radius: 12px; }
+    .plan-card.featured { background: #f0f5f0; border-color: #b7cdbb; }
+    .plan-label { color: #66816d; font-size: 10px; font-weight: 750; letter-spacing: 1px; text-transform: uppercase; }
+    .plan-card h3 { margin: 9px 0 5px; font-size: 17px; }
+    .plan-card > p { min-height: 34px; margin: 0; color: #7a837b; font-size: 11px; line-height: 1.55; }
+    .plan-price { display: flex; align-items: baseline; gap: 5px; margin: 19px 0; }
+    .plan-price strong { font-family: Georgia, "Times New Roman", serif; font-size: 36px; font-weight: 500; letter-spacing: -1px; }
+    .plan-price span { color: #858d85; font-size: 11px; }
+    .plan-features { display: grid; gap: 11px; margin: 0 0 22px; padding: 0; list-style: none; }
+    .plan-features li { display: flex; gap: 8px; align-items: flex-start; color: #566158; font-size: 11px; line-height: 1.45; }
+    .plan-features li:before { content: "✓"; color: var(--green); font-weight: 800; }
+    .plan-card .primary-button { width: 100%; }
+    .plan-card .outline-button { width: 100%; background: transparent; }
+    .plan-note { margin: 14px 0 0; color: #8a918a; font-size: 10px; text-align: center; }
+
     .projects-section { padding-bottom: 72px; }
     .project-tools { display: flex; gap: 8px; }
     .project-tools button { padding: 8px 12px; color: #737b73; background: transparent; border: 1px solid transparent; border-radius: 7px; font-size: 11px; font-weight: 600; }
@@ -195,6 +216,10 @@
       .project-tools { width: 100%; }
       .opportunity-band { grid-template-columns: 1fr; padding: 25px; }
       .opportunity-band .outline-button { justify-self: start; }
+      .plans-section { padding-bottom: 55px; }
+      .plans-intro h2 { font-size: 29px; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .plan-card > p { min-height: 0; }
       .project-grid { grid-template-columns: 1fr; }
       .project-card > p { min-height: auto; }
       .footer-inner { flex-wrap: wrap; gap: 16px; }
@@ -239,8 +264,7 @@
         <a href="#teams">Campus teams</a>
       </nav>
       <div class="nav-actions">
-        <button class="text-button" data-open="login">Log in</button>
-        <button class="primary-button" data-open="join">Join PeerConnect <span aria-hidden="true">↗</span></button>
+        <a class="primary-button" id="profile-link" href="create-profile.html">Create profile <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </header>
@@ -249,11 +273,11 @@
     <section class="shell hero">
       <div>
         <div class="eyebrow"><span class="eyebrow-dot"></span> Your campus, connected</div>
-        <h1>Good work starts <em>close to home.</em></h1>
+        <h1>Find your people. <em>Make good things.</em></h1>
         <p class="hero-copy">Find the people who make your next idea happen. Meet talented students, get help with a project, or build a team right in your community.</p>
         <div class="hero-actions">
           <a class="primary-button" href="#talent">Explore student talent <span aria-hidden="true">→</span></a>
-          <button class="outline-button" data-open="post">Post a project</button>
+          <a class="outline-button" href="profile.html#post-project">Post a project</a>
         </div>
         <div class="proof">
           <div class="avatar-stack" aria-hidden="true">
@@ -310,6 +334,43 @@
       <div class="people-grid" id="people-grid"></div>
     </section>
 
+    <section class="shell plans-section" id="plans">
+      <div class="plans-intro">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> A little boost goes a long way</div>
+        <h2>More of the right opportunities.</h2>
+        <p>Simple monthly plans for students ready to grow and teams ready to find experienced collaborators.</p>
+      </div>
+      <div class="plans-grid">
+        <article class="plan-card featured">
+          <div class="plan-label">For students</div>
+          <h3>Student Plus</h3>
+          <p>Get discovered by more local businesses, clubs, and people building something.</p>
+          <div class="plan-price"><strong>₹99</strong><span>/ month</span></div>
+          <ul class="plan-features">
+            <li>Featured placement in relevant talent searches</li>
+            <li>Plus badge on your profile and portfolio</li>
+            <li>See profile views and project interest</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <button class="primary-button" data-subscription="student">Get Student Plus <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="plan-card">
+          <div class="plan-label">For businesses &amp; organisers</div>
+          <h3>Client Plus</h3>
+          <p>Spend less time searching and find the right experience for your project.</p>
+          <div class="plan-price"><strong>₹199</strong><span>/ month</span></div>
+          <ul class="plan-features">
+            <li>Filter talent by experience, rating, and availability</li>
+            <li>Shortlist and compare verified portfolios</li>
+            <li>Get priority introductions to interested students</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <button class="outline-button" data-subscription="client">Get Client Plus <span aria-hidden="true">→</span></button>
+        </article>
+      </div>
+      <p class="plan-note">Plans renew monthly. Payment checkout will be available at launch.</p>
+    </section>
+
     <section class="shell" id="teams">
       <div class="opportunity-band">
         <div><h2>Big idea? Find your people.</h2><p>Bring together the right mix of skills and make something worth sharing.</p></div>
@@ -333,8 +394,8 @@
   <footer class="footer">
     <div class="shell footer-inner">
       <a class="brand" href="#"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7.5 12.5a4.5 4.5 0 0 1 0-9h3M16.5 11.5a4.5 4.5 0 0 1 0 9h-3M8 12h8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/></svg></span>PeerConnect</a>
-      <span>Good work is better together.</span>
-      <div class="footer-links"><a href="#talent">For students</a><a href="#projects">For businesses</a><a href="#teams">For clubs</a></div>
+      <span>Find your people. Make good things.</span>
+      <div class="footer-links"><a href="#talent">For students</a><a href="#projects">For businesses</a><a href="#teams">For clubs</a><a href="create-profile.html">Create profile</a></div>
     </div>
   </footer>
 
@@ -349,6 +410,7 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="app-data.js"></script>
   <script>
     const students = [
       { name: "Maya Kapoor", role: "Visual designer & illustrator", school: "North Campus", rating: "4.9", reviews: 12, skills: ["Brand design", "Illustration"], category: "Design", image: "photo-1534528741775-53994a69daeb", available: true },
@@ -373,48 +435,95 @@
     const imageUrl = (id, size = 160) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${size}&h=${size}&q=80`;
     const peopleGrid = document.querySelector("#people-grid");
     const projectGrid = document.querySelector("#project-grid");
+    let memberProfile = null;
+    let hasSavedProfile = false;
+    let memberProjects = [];
     let activeCategory = "All skills";
     let activeProjectType = "all";
     let query = "";
     let selectedLocation = "";
     const saved = new Set();
 
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[character]);
+    }
+
     function renderPeople() {
-      const matches = students.filter(person => {
-        const text = `${person.name} ${person.role} ${person.school} ${person.skills.join(" ")}`.toLowerCase();
+      const localProfile = memberProfile ? {
+        name: memberProfile.name,
+        role: memberProfile.headline || memberProfile.accountType,
+        school: memberProfile.organization || memberProfile.location || "PeerConnect member",
+        location: memberProfile.location,
+        rating: null,
+        reviews: 0,
+        skills: memberProfile.skills || [],
+        category: "All skills",
+        available: memberProfile.availability === "Available for work",
+        isMember: true
+      } : null;
+      const people = localProfile ? [localProfile, ...students] : students;
+      const matches = people.filter(person => {
+        const text = `${person.name} ${person.role} ${person.school} ${person.location || ""} ${person.skills.join(" ")}`.toLowerCase();
         const matchesQuery = !query || text.includes(query);
-        const matchesCategory = activeCategory === "All skills" || person.category === activeCategory;
-        const matchesLocation = !selectedLocation || person.school === selectedLocation;
+        const matchesCategory = activeCategory === "All skills" || person.category === activeCategory || person.skills.some(skill => skill.toLowerCase().includes(activeCategory.toLowerCase()));
+        const matchesLocation = !selectedLocation || (person.location || person.school) === selectedLocation;
         return matchesQuery && matchesCategory && matchesLocation;
       });
       peopleGrid.innerHTML = matches.length ? matches.map(person => `
         <article class="person-card">
           <div class="card-top">
-            <div class="portrait-wrap"><img class="portrait" src="${imageUrl(person.image)}" alt="${person.name}" loading="lazy"><span class="verified" aria-label="College verified">✓</span></div>
-            <button class="save-button ${saved.has(person.name) ? "saved" : ""}" data-save="${person.name}" aria-label="${saved.has(person.name) ? "Remove " + person.name + " from saved people" : "Save " + person.name}" aria-pressed="${saved.has(person.name)}">
+            <div class="portrait-wrap">${person.isMember
+              ? `<span class="portrait" style="display:grid;place-items:center;color:var(--green);background:var(--mint);font-size:20px">${escapeHtml(person.name.charAt(0).toUpperCase())}</span>`
+              : `<img class="portrait" src="${imageUrl(person.image)}" alt="${escapeHtml(person.name)}" loading="lazy"><span class="verified" aria-label="College verified">✓</span>`}</div>
+            <button class="save-button ${saved.has(person.name) ? "saved" : ""}" data-save="${escapeHtml(person.name)}" aria-label="${saved.has(person.name) ? "Remove " + escapeHtml(person.name) + " from saved people" : "Save " + escapeHtml(person.name)}" aria-pressed="${saved.has(person.name)}">
               <svg viewBox="0 0 24 24" fill="${saved.has(person.name) ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.7"><path d="M20.8 8.7c0 5.2-8.8 10-8.8 10S3.2 13.9 3.2 8.7A4.4 4.4 0 0 1 12 6.8a4.4 4.4 0 0 1 8.8 1.9Z"/></svg>
             </button>
           </div>
-          <h3>${person.name}</h3><div class="role">${person.role}</div>
-          <div class="school"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 12v5c3 2.5 7 2.5 10 0v-5"/></svg>${person.school} · College verified</div>
-          <div class="skill-list">${person.skills.map(skill => `<span class="skill">${skill}</span>`).join("")}</div>
-          <div class="card-footer"><div class="rating"><b>★</b>${person.rating} <small>(${person.reviews})</small></div><div class="availability"><i style="${person.available ? "" : "background:#c9cec9"}"></i>${person.available ? "Available" : "Booked"}</div></div>
+          <h3>${escapeHtml(person.name)}</h3><div class="role">${escapeHtml(person.role)}</div>
+          <div class="school"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 12v5c3 2.5 7 2.5 10 0v-5"/></svg>${escapeHtml(person.school)}${person.isMember ? " · Your profile" : " · College verified"}</div>
+          <div class="skill-list">${person.skills.map(skill => `<span class="skill">${escapeHtml(skill)}</span>`).join("")}</div>
+          <div class="card-footer"><div class="rating">${person.rating ? `<b>★</b>${person.rating} <small>(${person.reviews})</small>` : "<small>No reviews yet</small>"}</div><div class="availability"><i style="${person.available ? "" : "background:#c9cec9"}"></i>${person.available ? "Available" : "Booked"}</div></div>
         </article>`).join("") : `<div class="empty-state">No students match that search yet. Try another skill or location.</div>`;
     }
 
     function renderProjects() {
-      const matches = projects.filter(project => {
+      const matches = [...memberProjects, ...projects].filter(project => {
         const text = `${project.title} ${project.client} ${project.description} ${project.skills.join(" ")}`.toLowerCase();
         return (activeProjectType === "all" || project.kind === activeProjectType) && (!query || text.includes(query)) && (!selectedLocation || project.location === selectedLocation);
       });
       projectGrid.innerHTML = matches.length ? matches.map(project => `
         <article class="project-card">
-          <div class="project-label"><span>${project.kind === "Business" ? "Local business" : "Event & campus"}</span><span>${project.client}</span></div>
-          <h3>${project.title}</h3><p>${project.description}</p>
-          <div class="skill-list">${project.skills.map(skill => `<span class="skill">${skill}</span>`).join("")}</div>
-          <div class="project-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${project.time}</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${project.location}</span></div>
-          <div class="project-bottom"><strong>${project.budget} <small>budget</small></strong><button data-apply="${project.title}">View project →</button></div>
+          <div class="project-label"><span>${project.kind === "Business" ? "Local business" : "Event & campus"}</span><span>${escapeHtml(project.client)}</span></div>
+          <h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(project.description)}</p>
+          <div class="skill-list">${project.skills.map(skill => `<span class="skill">${escapeHtml(skill)}</span>`).join("")}</div>
+          <div class="project-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${escapeHtml(project.time)}</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>${escapeHtml(project.location)}</span></div>
+          <div class="project-bottom"><strong>${escapeHtml(project.budget)} <small>budget</small></strong><button data-apply="${escapeHtml(project.title)}">View project →</button></div>
         </article>`).join("") : `<div class="empty-state">No projects match your search. Clear the filters to see all opportunities.</div>`;
+    }
+
+    async function loadMemberData() {
+      try {
+        const [profile, projectsForMember] = await Promise.all([
+          PeerConnectDB.getProfile(),
+          PeerConnectDB.getProjects()
+        ]);
+        hasSavedProfile = Boolean(profile);
+        memberProfile = profile?.accountType === "Student" ? profile : null;
+        memberProjects = projectsForMember;
+        document.querySelector("#profile-link").innerHTML = `${hasSavedProfile ? "My profile" : "Create profile"} <span aria-hidden="true">↗</span>`;
+        document.querySelector("#profile-link").href = hasSavedProfile ? "profile.html" : "create-profile.html";
+        if (memberProfile?.location) {
+          const locationFilter = document.querySelector("#location-filter");
+          const hasLocation = [...locationFilter.options].some(option => option.value === memberProfile.location);
+          if (!hasLocation) locationFilter.add(new Option(memberProfile.location, memberProfile.location));
+        }
+        renderPeople();
+        renderProjects();
+      } catch (error) {
+        projectGrid.innerHTML = `<div class="empty-state">${escapeHtml(error.message)} Open PeerConnect from a local web server to use saved profiles and projects.</div>`;
+      }
     }
 
     document.querySelectorAll(".category").forEach(button => button.addEventListener("click", () => {
@@ -473,7 +582,13 @@
       apply: ["Interested in this project?", "Introduce yourself and the project owner will be in touch.", [
         ["Your name", "text", "Your name", true], ["Email address", "email", "you@college.edu", true],
         ["A short note", "textarea", "Share a little about why you’re a good fit.", true]
-      ], "Send interest"]
+      ], "Send interest"],
+      studentPlan: ["Start Student Plus · ₹99/month", "Get featured in relevant searches and see who's discovering your profile. Monthly plan; cancel anytime.", [
+        ["Email address", "email", "you@college.edu", true]
+      ], "Continue to payment"],
+      clientPlan: ["Start Client Plus · ₹199/month", "Find experienced, highly rated collaborators with advanced filters and priority introductions. Monthly plan; cancel anytime.", [
+        ["Email address", "email", "you@example.com", true]
+      ], "Continue to payment"]
     };
 
     const modal = document.querySelector("#modal-backdrop");
@@ -498,13 +613,24 @@
 
     function closeModal() { modal.classList.remove("open"); }
     document.querySelectorAll("[data-open]").forEach(button => button.addEventListener("click", () => openModal(button.dataset.open)));
+    document.querySelectorAll("[data-subscription]").forEach(button => button.addEventListener("click", () => {
+      openModal(button.dataset.subscription === "student" ? "studentPlan" : "clientPlan");
+    }));
     document.querySelector(".close-button").addEventListener("click", closeModal);
     modal.addEventListener("click", event => { if (event.target === modal) closeModal(); });
     document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
     form.addEventListener("submit", event => {
       event.preventDefault();
       closeModal();
-      const messages = { join: "You’re on your way. Profile creation is coming soon!", login: "Login is coming soon. Thanks for stopping by!", post: "Project draft received. We’ll help you get it out there!", team: "Your team idea is ready to take shape!", apply: "Interest sent! Good luck with the project." };
+      const messages = {
+        join: "You’re on your way. Profile creation is coming soon!",
+        login: "Login is coming soon. Thanks for stopping by!",
+        post: "Project draft received. We’ll help you get it out there!",
+        team: "Your team idea is ready to take shape!",
+        apply: "Interest sent! Good luck with the project.",
+        studentPlan: "Checkout isn’t connected yet. Payment setup is needed before subscribing.",
+        clientPlan: "Checkout isn’t connected yet. Payment setup is needed before subscribing."
+      };
       const toast = document.querySelector("#toast");
       toast.textContent = messages[currentModal];
       toast.classList.add("show");
@@ -513,6 +639,7 @@
 
     renderPeople();
     renderProjects();
+    loadMemberData();
   </script>
 </body>
 </html>
