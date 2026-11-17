@@ -24,6 +24,7 @@
     }
 
     * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     body { margin: 0; color: var(--ink); background: var(--paper); }
     button, input, select, textarea { font: inherit; }
     button { cursor: pointer; }
@@ -42,7 +43,7 @@
     .text-button { padding: 10px 12px; color: #535d55; background: transparent; }
     .primary-button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 12px 17px; color: white; background: var(--green); border-radius: 8px; transition: background .2s, transform .2s; }
     .primary-button:hover { background: var(--green-dark); transform: translateY(-1px); }
-    .outline-button { padding: 11px 15px; color: var(--green); background: white; border: 1px solid #dce5dd; border-radius: 8px; }
+    .outline-button { display: inline-flex; justify-content: center; align-items: center; padding: 11px 15px; color: var(--green); background: white; border: 1px solid #dce5dd; border-radius: 8px; }
     .outline-button:hover { border-color: var(--green); }
 
     .hero { display: grid; grid-template-columns: 1.03fr .97fr; gap: 52px; align-items: center; padding-top: 62px; padding-bottom: 56px; }
@@ -58,12 +59,13 @@
     .avatar-stack img { width: 27px; height: 27px; margin-left: -5px; object-fit: cover; border: 2px solid var(--paper); border-radius: 50%; }
     .proof strong { color: #49544b; font-weight: 700; }
 
-    .hero-art { min-height: 362px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 19px; background: #e9eee6; }
+    .hero-art { min-height: 362px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 19px; background: radial-gradient(circle at 50% 49%, #f8faf5 0 17%, transparent 17.5%), linear-gradient(135deg, #eef2e9, #e5ece3); }
     .hero-art:before, .hero-art:after { position: absolute; content: ""; border: 1px solid rgba(36,92,67,.1); border-radius: 50%; }
     .hero-art:before { width: 330px; height: 330px; }
     .hero-art:after { width: 250px; height: 250px; }
-    .art-center { z-index: 1; width: 132px; height: 132px; display: grid; place-items: center; color: #f7f6ed; background: var(--green); border: 9px solid rgba(255,255,255,.52); border-radius: 50%; box-shadow: 0 12px 28px rgba(36,92,67,.18); }
-    .art-center svg { width: 58px; height: 58px; }
+    .art-center { z-index: 1; width: 132px; height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: #f7f6ed; background: var(--green); border: 9px solid rgba(255,255,255,.52); border-radius: 50%; box-shadow: 0 12px 28px rgba(36,92,67,.18); }
+    .art-center svg { width: 52px; height: 52px; }
+    .art-center span { font-size: 7px; font-weight: 750; letter-spacing: 1.4px; }
     .orbit-person { position: absolute; z-index: 2; display: flex; align-items: center; gap: 9px; padding: 7px 12px 7px 7px; background: white; border: 1px solid rgba(32,42,36,.05); border-radius: 50px; box-shadow: 0 7px 22px rgba(30,48,36,.1); }
     .orbit-person img { width: 37px; height: 37px; object-fit: cover; border-radius: 50%; }
     .orbit-person span { font-size: 11px; font-weight: 700; }
@@ -88,7 +90,7 @@
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 23px; }
     .section-heading h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 500; letter-spacing: -.8px; }
     .section-heading p { margin: 8px 0 0; color: #858c85; font-size: 12px; }
-    .view-all { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: 12px; font-weight: 700; }
+    .view-all { display: inline-flex; align-items: center; gap: 7px; padding: 0; color: var(--green); background: transparent; border: 0; font-size: 12px; font-weight: 700; }
     .view-all:hover { gap: 11px; }
     .discover { padding-bottom: 70px; }
     .category-row { display: flex; gap: 9px; overflow-x: auto; margin: 0 0 22px; padding-bottom: 2px; scrollbar-width: none; }
@@ -97,8 +99,9 @@
     .category:hover, .category.selected { color: white; background: var(--green); border-color: var(--green); }
 
     .people-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
-    .person-card { min-width: 0; padding: 18px; background: white; border: 1px solid #e9ebe7; border-radius: 12px; transition: transform .2s, box-shadow .2s; }
+    .person-card { min-width: 0; padding: 18px; background: white; border: 1px solid #e9ebe7; border-radius: 12px; cursor: pointer; transition: transform .2s, box-shadow .2s; }
     .person-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .person-card:focus-within { outline: 2px solid #9db8a2; outline-offset: 2px; }
     .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
     .portrait-wrap { position: relative; }
     .portrait { width: 57px; height: 57px; object-fit: cover; border-radius: 50%; background: #e8ece8; }
@@ -116,8 +119,15 @@
     .rating { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 720; }
     .rating b { color: #d99a51; font-size: 13px; }
     .rating small { color: #90978f; font-size: 10px; font-weight: 500; }
+    .review-quote { display: -webkit-box; min-height: 28px; overflow: hidden; margin: 10px 0 0; color: #7d857d; font-size: 9px; font-style: italic; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .profile-open-button { width: 100%; margin-top: 13px; padding: 9px 10px; color: var(--green); background: #f8faf7; border: 1px solid #e2e9e1; border-radius: 6px; font-size: 10px; font-weight: 700; }
+    .profile-open-button:hover { background: #edf4ed; border-color: #b7cdbb; }
     .availability { display: inline-flex; align-items: center; gap: 5px; color: #63846b; font-size: 9px; font-weight: 620; }
     .availability i { width: 6px; height: 6px; background: #7db38b; border-radius: 50%; }
+    .student-results { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 21px; color: #838b83; font-size: 10px; }
+    .student-results .view-all { padding: 10px 14px; color: var(--green); background: white; border: 1px solid #dfe8df; border-radius: 7px; }
+    .student-results .view-all:hover { border-color: var(--green); }
+    .student-results .view-all[hidden] { display: none; }
 
     .opportunity-band { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; margin-bottom: 68px; padding: 29px 35px; color: white; background: #244e3c; border-radius: 14px; }
     .opportunity-band:after { position: absolute; right: 190px; width: 270px; height: 270px; content: ""; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; box-shadow: 0 0 0 34px rgba(255,255,255,.035), 0 0 0 68px rgba(255,255,255,.025); }
@@ -176,6 +186,7 @@
     .modal-backdrop { position: fixed; z-index: 5; inset: 0; display: none; align-items: center; justify-content: center; padding: 18px; background: rgba(20,31,24,.45); backdrop-filter: blur(3px); }
     .modal-backdrop.open { display: flex; }
     .modal { width: min(100%, 480px); max-height: 92vh; overflow-y: auto; padding: 26px; background: #fff; border-radius: 14px; box-shadow: 0 24px 80px rgba(0,0,0,.2); }
+    .modal.profile-open { width: min(100%, 720px); }
     .modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 20px; }
     .modal-head h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 25px; font-weight: 500; }
     .modal-head p { margin: 6px 0 0; color: #818981; font-size: 12px; line-height: 1.5; }
@@ -186,6 +197,37 @@
     .form-grid input:focus, .form-grid select:focus, .form-grid textarea:focus { border-color: #85a38d; box-shadow: 0 0 0 3px #edf3ee; }
     .form-grid textarea { min-height: 85px; resize: vertical; }
     .form-submit { width: 100%; margin-top: 4px; }
+    .profile-detail { display: grid; gap: 19px; }
+    .detail-intro { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 14px; }
+    .detail-avatar { width: 64px; height: 64px; display: grid; place-items: center; overflow: hidden; color: var(--green); background: var(--mint); border-radius: 50%; font-family: Georgia, "Times New Roman", serif; font-size: 25px; }
+    .detail-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-role { margin-top: 4px; color: #7e867e; font-size: 12px; }
+    .demo-note { margin: 0; padding: 9px 11px; color: #737d74; background: #f8f9f6; border-radius: 6px; font-size: 10px; line-height: 1.5; }
+    .detail-price { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 14px; background: #f0f5f0; border-radius: 9px; }
+    .detail-price span, .detail-price small { display: block; color: #768178; font-size: 10px; }
+    .detail-price strong { display: block; margin: 3px 0; color: var(--green); font-size: 17px; }
+    .detail-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+    .detail-fact { min-width: 0; padding: 11px; background: #f8f9f6; border-radius: 7px; }
+    .detail-fact span { display: block; margin-bottom: 5px; color: #899189; font-size: 9px; }
+    .detail-fact strong { display: block; color: #455148; font-size: 10px; line-height: 1.45; overflow-wrap: anywhere; }
+    .profile-detail section { min-width: 0; }
+    .profile-detail h3 { margin: 0 0 8px; font-size: 12px; }
+    .detail-description { margin: 0; color: #687269; font-size: 11px; line-height: 1.65; }
+    .detail-features { display: grid; gap: 7px; margin: 0; padding-left: 20px; color: #59645b; font-size: 10px; line-height: 1.5; }
+    .detail-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+    .work-sample { overflow: hidden; background: white; border: 1px solid #e8ebe6; border-radius: 8px; }
+    .work-art { min-height: 66px; display: flex; align-items: flex-end; padding: 9px; color: #fff; background: linear-gradient(135deg, #245c43, #92a88e); }
+    .work-sample:nth-child(3n + 2) .work-art { background: linear-gradient(135deg, #bc8356, #e1c49a); }
+    .work-sample:nth-child(3n) .work-art { background: linear-gradient(135deg, #536879, #adb5aa); }
+    .work-art span { font-size: 8px; font-weight: 750; letter-spacing: .8px; text-transform: uppercase; }
+    .work-copy { padding: 10px; }
+    .work-copy strong { display: block; margin-bottom: 5px; font-size: 10px; line-height: 1.4; }
+    .work-copy p { margin: 0; color: #7e877e; font-size: 9px; line-height: 1.5; }
+    .detail-review { padding: 13px; background: #fbf8f0; border: 1px solid #f0eadc; border-radius: 8px; }
+    .detail-review strong { color: #d09346; font-size: 11px; }
+    .detail-review p { margin: 6px 0 0; color: #5f685f; font-size: 10px; font-style: italic; line-height: 1.55; }
+    .detail-review small { display: block; margin-top: 7px; color: #8a918a; font-size: 9px; }
     .toast { position: fixed; z-index: 8; right: 22px; bottom: 22px; padding: 13px 18px; color: white; background: #263f31; border-radius: 8px; box-shadow: var(--shadow); font-size: 12px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .2s; }
     .toast.show { opacity: 1; transform: translateY(0); }
 
@@ -204,7 +246,7 @@
       .nav-actions .text-button { display: none; }
       .nav-actions .primary-button { padding: 10px 12px; font-size: 11px; }
       .hero { grid-template-columns: 1fr; gap: 27px; padding-top: 42px; padding-bottom: 38px; }
-      h1 { max-width: 500px; font-size: 48px; }
+      h1 { max-width: 500px; font-size: 46px; }
       .hero-art { min-height: 310px; }
       .search-panel { grid-template-columns: 1fr auto; margin-bottom: 49px; padding: 8px; }
       .search-field { min-height: 43px; padding: 0 10px; }
@@ -222,13 +264,17 @@
       .plan-card > p { min-height: 0; }
       .project-grid { grid-template-columns: 1fr; }
       .project-card > p { min-height: auto; }
+      .detail-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .work-grid { grid-template-columns: 1fr; }
+      .detail-price { align-items: stretch; flex-direction: column; }
       .footer-inner { flex-wrap: wrap; gap: 16px; }
     }
     @media (max-width: 430px) {
       .shell { padding: 0 15px; }
       .brand { font-size: 17px; }
-      .hero-actions { gap: 8px; }
-      .hero-actions .primary-button, .hero-actions .outline-button { padding: 0 12px; font-size: 11px; }
+      h1 { font-size: clamp(38px, 11vw, 44px); }
+      .hero-actions { display: grid; grid-template-columns: 1fr; gap: 9px; }
+      .hero-actions .primary-button, .hero-actions .outline-button { width: 100%; min-height: 45px; padding: 0 12px; font-size: 11px; }
       .hero-art { min-height: 275px; }
       .hero-art:before { width: 260px; height: 260px; }
       .hero-art:after { width: 190px; height: 190px; }
@@ -274,7 +320,7 @@
       <div>
         <div class="eyebrow"><span class="eyebrow-dot"></span> Your campus, connected</div>
         <h1>Find your people. <em>Make good things.</em></h1>
-        <p class="hero-copy">Find the people who make your next idea happen. Meet talented students, get help with a project, or build a team right in your community.</p>
+        <p class="hero-copy">Find a student designer for your launch, a developer for your website, or a team for your next campus event—all nearby.</p>
         <div class="hero-actions">
           <a class="primary-button" href="#talent">Explore student talent <span aria-hidden="true">→</span></a>
           <a class="outline-button" href="profile.html#post-project">Post a project</a>
@@ -291,11 +337,11 @@
       </div>
       <div class="hero-art" aria-label="Students collaborating across creative, technical, and event projects">
         <span class="spark spark-one">✳</span><span class="spark spark-two">✳</span>
-        <div class="art-center" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="32" cy="22" r="8"/><path d="M16 49c1.6-9 7.5-13 16-13s14.4 4 16 13M12 16l5 4m35-4-5 4M12 48l6-3m34 3-6-3"/></svg></div>
-        <div class="orbit-person person-one"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Maya K.<small>Brand designer</small></span></div>
-        <div class="orbit-person person-two"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Rohan S.<small>Web developer</small></span></div>
-        <div class="orbit-person person-three"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Ananya P.<small>Event producer</small></span></div>
-        <div class="orbit-person person-four"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Arjun M.<small>Video editor</small></span></div>
+        <div class="art-center" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7.5 12.5a4.5 4.5 0 0 1 0-9h3M16.5 11.5a4.5 4.5 0 0 1 0 9h-3M8 12h8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/></svg><span>PEERCONNECT</span></div>
+        <div class="orbit-person person-one"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Sneha K.<small>Graphic designer</small></span></div>
+        <div class="orbit-person person-two"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Rohan V.<small>Web developer</small></span></div>
+        <div class="orbit-person person-three"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Priya N.<small>Social media</small></span></div>
+        <div class="orbit-person person-four"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&amp;fit=crop&amp;w=96&amp;h=96&amp;q=80" alt=""><span>Ananya I.<small>Video editor</small></span></div>
         <div class="art-note">One community. A lot of possibilities.</div>
       </div>
     </section>
@@ -310,7 +356,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
           <select id="location-filter" aria-label="Filter by location">
             <option value="">All locations</option>
-            <option>North Campus</option><option>City Centre</option><option>West End</option>
+            <option value="Pune">Pune</option><option value="Mumbai">Mumbai</option><option value="Delhi">Delhi</option><option value="Bengaluru">Bengaluru</option><option value="Pilani">Pilani</option>
+            <option value="North Campus">North Campus</option><option value="City Centre">City Centre</option><option value="West End">West End</option>
           </select>
         </label>
         <button class="primary-button search-button" type="submit">Search <span aria-hidden="true">→</span></button>
@@ -320,18 +367,21 @@
     <section class="shell discover" id="talent">
       <div class="section-heading">
         <div><h2>Meet your next collaborator</h2><p>Talented people, right around the corner.</p></div>
-        <a class="view-all" href="#talent">View all students <span aria-hidden="true">→</span></a>
       </div>
       <div class="category-row" role="group" aria-label="Filter by skill">
-        <button class="category selected" data-category="All skills">All skills</button>
-        <button class="category" data-category="Design">Design</button>
-        <button class="category" data-category="Development">Development</button>
-        <button class="category" data-category="Video &amp; photo">Video &amp; photo</button>
-        <button class="category" data-category="Marketing">Marketing</button>
-        <button class="category" data-category="Events">Events</button>
-        <button class="category" data-category="Writing">Writing</button>
+        <button class="category selected" data-category="All skills" aria-pressed="true">All skills</button>
+        <button class="category" data-category="Design" aria-pressed="false">Design</button>
+        <button class="category" data-category="Development" aria-pressed="false">Development</button>
+        <button class="category" data-category="Video &amp; photo" aria-pressed="false">Video &amp; photo</button>
+        <button class="category" data-category="Marketing" aria-pressed="false">Marketing</button>
+        <button class="category" data-category="Events" aria-pressed="false">Events</button>
+        <button class="category" data-category="Writing" aria-pressed="false">Writing</button>
       </div>
       <div class="people-grid" id="people-grid"></div>
+      <div class="student-results">
+        <span id="student-results-count" aria-live="polite"></span>
+        <button class="view-all" id="show-more" type="button" hidden>More students <span aria-hidden="true">→</span></button>
+      </div>
     </section>
 
     <section class="shell plans-section" id="plans">
@@ -405,6 +455,7 @@
         <div><h2 id="modal-title"></h2><p id="modal-description"></p></div>
         <button class="close-button" aria-label="Close dialog">&times;</button>
       </div>
+      <div class="profile-detail" id="profile-detail" hidden></div>
       <form class="form-grid" id="modal-form"></form>
     </section>
   </div>
@@ -413,14 +464,34 @@
   <script src="app-data.js"></script>
   <script>
     const students = [
-      { name: "Maya Kapoor", role: "Visual designer & illustrator", school: "North Campus", rating: "4.9", reviews: 12, skills: ["Brand design", "Illustration"], category: "Design", image: "photo-1534528741775-53994a69daeb", available: true },
-      { name: "Rohan Shah", role: "Frontend developer", school: "City Centre", rating: "5.0", reviews: 8, skills: ["Websites", "React"], category: "Development", image: "photo-1500648767791-00dcc994a43e", available: true },
-      { name: "Ananya Patel", role: "Events & community lead", school: "North Campus", rating: "4.8", reviews: 16, skills: ["Event planning", "Outreach"], category: "Events", image: "photo-1531123897727-8f129e1688ce", available: false },
-      { name: "Arjun Mehta", role: "Video editor & filmmaker", school: "West End", rating: "4.9", reviews: 9, skills: ["Video editing", "Reels"], category: "Video & photo", image: "photo-1506794778202-cad84cf45f1d", available: true },
-      { name: "Sara Khan", role: "Social media strategist", school: "City Centre", rating: "4.9", reviews: 11, skills: ["Social media", "Content"], category: "Marketing", image: "photo-1544005313-94ddf0286df2", available: true },
-      { name: "Dev Malhotra", role: "Full-stack developer", school: "North Campus", rating: "4.7", reviews: 7, skills: ["Web apps", "JavaScript"], category: "Development", image: "photo-1507003211169-0a1dd7228f2d", available: true },
-      { name: "Isha Rao", role: "Writer & content creator", school: "West End", rating: "5.0", reviews: 6, skills: ["Copywriting", "Blogs"], category: "Writing", image: "photo-1524504388940-b1c1722653e1", available: false },
-      { name: "Kabir Sethi", role: "Photographer & editor", school: "City Centre", rating: "4.8", reviews: 14, skills: ["Photography", "Lightroom"], category: "Video & photo", image: "photo-1517841905240-472988babdf9", available: true }
+      { name: "Aarav Deshmukh", role: "Content creator & copywriter", school: "Ajeenkya DY Patil University", location: "Pune", rating: "4.8", reviews: 14, review: "Aarav delivered the Instagram captions right on schedule. Very engaging tone!", skills: ["Content creation", "Copywriting"], category: "Writing", image: "photo-1500648767791-00dcc994a43e", available: true },
+      { name: "Sneha Kulkarni", role: "Graphic designer & illustrator", school: "Fergusson College", location: "Pune", rating: "4.2", reviews: 9, review: "Good design sense, though we had to ask for one revision on the color palette.", skills: ["Graphic design", "Illustration"], category: "Design", image: "photo-1534528741775-53994a69daeb", available: true },
+      { name: "Rohan Verma", role: "Frontend web developer", school: "COEP Technological University", location: "Pune", rating: "3.5", reviews: 6, review: "He built the landing page cleanly, but communication could have been a bit faster during exams.", skills: ["Frontend", "Web development"], category: "Development", image: "photo-1506794778202-cad84cf45f1d", available: true },
+      { name: "Ananya Iyer", role: "Video editor & reel maker", school: "MIT World Peace University", location: "Pune", rating: "5.0", reviews: 22, review: "Absolute lifesaver for our college fest reels. Cut the footage brilliantly!", skills: ["Video editing", "Reels"], category: "Video & photo", image: "photo-1531123897727-8f129e1688ce", available: true },
+      { name: "Kabir Mehta", role: "UI/UX designer", school: "Symbiosis Institute of Technology", location: "Pune", rating: "2.8", reviews: 4, review: "Missed the initial deadline by a day, but the final Figma wireframes were decent.", skills: ["UI/UX", "Figma"], category: "Design", image: "photo-1507003211169-0a1dd7228f2d", available: false },
+      { name: "Priya Nair", role: "Social media manager", school: "St. Xavier’s College", location: "Mumbai", rating: "4.6", reviews: 18, review: "Understands local cafe trends very well. Increased our engagement noticeably.", skills: ["Social media", "Campaigns"], category: "Marketing", image: "photo-1544005313-94ddf0286df2", available: true },
+      { name: "Tanmay Joshi", role: "Full-stack developer", school: "PICT Pune", location: "Pune", rating: "4.0", reviews: 11, review: "Solid code quality for our small business inventory script. Fixed bugs promptly.", skills: ["Full-stack", "JavaScript"], category: "Development", image: "photo-1501196354995-cbb51c65aaea", available: true },
+      { name: "Diya Sharma", role: "Technical writer & blogger", school: "Flame University", location: "Pune", rating: "4.9", reviews: 27, review: "Extremely thorough researcher. Her tech articles required zero editing from our side.", skills: ["Technical writing", "Blogs"], category: "Writing", image: "photo-1524504388940-b1c1722653e1", available: true },
+      { name: "Yash Shinde", role: "Motion graphics artist", school: "Vishwakarma Institute of Technology", location: "Pune", rating: "3.1", reviews: 5, review: "The animation was creative, but the file formats were a bit messy to handle.", skills: ["Motion graphics", "Animation"], category: "Video & photo", image: "photo-1504593811423-6dd665756598", available: true },
+      { name: "Meera Pillai", role: "Graphic & brand designer", school: "NIFT Mumbai", location: "Mumbai", rating: "4.7", reviews: 31, review: "Fantastic logo concepts provided for our clothing line startup. Highly recommended!", skills: ["Brand design", "Logo design"], category: "Design", image: "photo-1517841905240-472988babdf9", available: true },
+      { name: "Aditya Jadhav", role: "Video editor & color grader", school: "Dr. D.Y. Patil Institute of Technology", location: "Pune", rating: "1.5", reviews: 3, review: "Failed to submit the project on time and stopped responding midway. Disappointing.", skills: ["Video editing", "Color grading"], category: "Video & photo", image: "photo-1500648767791-00dcc994a43e", available: false },
+      { name: "Simran Kaur", role: "Content strategist & copywriter", school: "Jesus and Mary College", location: "Delhi", rating: "4.5", reviews: 16, review: "Great command over English and Hindi copywriting for our ad campaigns.", skills: ["Content strategy", "Copywriting"], category: "Writing", image: "photo-1531123897727-8f129e1688ce", available: true },
+      { name: "Karan Patil", role: "Android app developer", school: "upGrad School of Technology", location: "Mumbai", rating: "3.8", reviews: 8, review: "Delivered the app prototype on time. A few minor UI glitches on older devices, but fixed them later.", skills: ["Android", "App development"], category: "Development", image: "photo-1506794778202-cad84cf45f1d", available: true },
+      { name: "Neha Gokhale", role: "Event photographer & editor", school: "Brihan Maharashtra College of Commerce (BMCC)", location: "Pune", rating: "4.9", reviews: 25, review: "Captured our cafe launch event beautifully. The turnaround time for photos was super fast.", skills: ["Photography", "Photo editing"], category: "Video & photo", image: "photo-1544005313-94ddf0286df2", available: true },
+      { name: "Akash Gupta", role: "SEO & digital marketer", school: "IIT Bombay", location: "Mumbai", rating: "4.3", reviews: 12, review: "Good keyword strategy for our local store website. Saw an uptick in organic traffic.", skills: ["SEO", "Digital marketing"], category: "Marketing", image: "photo-1507003211169-0a1dd7228f2d", available: true },
+      { name: "Rutuja More", role: "Graphic designer & poster artist", school: "Bharati Vidyapeeth Deemed University", location: "Pune", rating: "2.0", reviews: 4, review: "The flyer design looked a bit outdated, didn’t quite match our modern cafe vibe.", skills: ["Graphic design", "Posters"], category: "Design", image: "photo-1534528741775-53994a69daeb", available: true },
+      { name: "Siddharth Rao", role: "Copywriter & Marathi/English translator", school: "Savitribai Phule Pune University", location: "Pune", rating: "4.4", reviews: 10, review: "Very accurate translations and localized copywriting for our promotional pamphlets.", skills: ["Copywriting", "Translation"], category: "Writing", image: "photo-1501196354995-cbb51c65aaea", available: true },
+      { name: "Ananya Ghosh", role: "UI designer & illustrator", school: "Srishti Institute of Art, Design and Technology", location: "Bengaluru", rating: "4.7", reviews: 19, review: "Incredible illustration work! She gave our app a unique, warm hand-drawn feel.", skills: ["UI design", "Illustration"], category: "Design", image: "photo-1524504388940-b1c1722653e1", available: true },
+      { name: "Nikhil Kumar", role: "Backend developer & scripter", school: "BITS Pilani", location: "Pilani", rating: "3.9", reviews: 7, review: "Handled the data scraping task efficiently. Code was well-documented.", skills: ["Backend", "Scripting"], category: "Development", image: "photo-1504593811423-6dd665756598", available: true },
+      { name: "Pooja Thakur", role: "Social media content creator", school: "St. Mira’s College for Girls", location: "Pune", rating: "5.0", reviews: 29, review: "Brought amazing creative ideas to our local bakery’s page. Her reels went viral locally!", skills: ["Social media", "Reels"], category: "Marketing", image: "photo-1517841905240-472988babdf9", available: true },
+      { name: "Maya Kapoor", role: "Visual designer & illustrator", school: "North Campus", location: "North Campus", rating: "4.9", reviews: 12, review: "Maya’s identity work made our student showcase feel cohesive and welcoming.", skills: ["Brand design", "Illustration"], category: "Design", image: "photo-1534528741775-53994a69daeb", available: true },
+      { name: "Rohan Shah", role: "Frontend developer", school: "City Centre", location: "City Centre", rating: "5.0", reviews: 8, review: "Rohan built a tidy landing page and explained every handoff clearly.", skills: ["Websites", "React"], category: "Development", image: "photo-1500648767791-00dcc994a43e", available: true },
+      { name: "Ananya Patel", role: "Events & community lead", school: "North Campus", location: "North Campus", rating: "4.8", reviews: 16, review: "Ananya kept our volunteers coordinated and made event day feel easy.", skills: ["Event planning", "Outreach"], category: "Events", image: "photo-1531123897727-8f129e1688ce", available: false },
+      { name: "Arjun Mehta", role: "Video editor & filmmaker", school: "West End", location: "West End", rating: "4.9", reviews: 9, review: "The final cut captured the energy of the event perfectly.", skills: ["Video editing", "Reels"], category: "Video & photo", image: "photo-1506794778202-cad84cf45f1d", available: true },
+      { name: "Sara Khan", role: "Social media strategist", school: "City Centre", location: "City Centre", rating: "4.9", reviews: 11, review: "Sara helped us plan a month of posts that felt true to our audience.", skills: ["Social media", "Content"], category: "Marketing", image: "photo-1544005313-94ddf0286df2", available: true },
+      { name: "Dev Malhotra", role: "Full-stack developer", school: "North Campus", location: "North Campus", rating: "4.7", reviews: 7, review: "Dependable, thoughtful code and a clear handover for our small web app.", skills: ["Web apps", "JavaScript"], category: "Development", image: "photo-1507003211169-0a1dd7228f2d", available: true },
+      { name: "Isha Rao", role: "Writer & content creator", school: "West End", location: "West End", rating: "5.0", reviews: 6, review: "Isha found a warm voice for our newsletter and delivered ahead of schedule.", skills: ["Copywriting", "Blogs"], category: "Writing", image: "photo-1524504388940-b1c1722653e1", available: false },
+      { name: "Kabir Sethi", role: "Photographer & editor", school: "City Centre", location: "City Centre", rating: "4.8", reviews: 14, review: "Lovely event photos, thoughtfully edited and shared the next morning.", skills: ["Photography", "Lightroom"], category: "Video & photo", image: "photo-1517841905240-472988babdf9", available: true }
     ];
 
     const projects = [
@@ -442,12 +513,117 @@
     let activeProjectType = "all";
     let query = "";
     let selectedLocation = "";
+    let visibleStudentCount = 12;
     const saved = new Set();
+    const peopleByName = new Map();
 
     function escapeHtml(value) {
       return String(value ?? "").replace(/[&<>"']/g, character => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
       })[character]);
+    }
+
+    const profileTemplates = {
+      Design: {
+        description: "Turns an early idea into a polished visual identity and ready-to-use creative.",
+        price: "₹1,500–₹6,000 / project",
+        features: ["Visual identity and logo systems", "Social, poster and print-ready assets", "Figma files and organized handoff"],
+        works: [
+          ["Visual identity", "Visual identity for {school}'s fest", "A flexible logo, color palette and poster set for a student event."],
+          ["Brand launch", "Launch kit for a {city} cafe", "Menu styling and reusable social graphics for a neighborhood opening."],
+          ["Presentation", "{name}'s student startup deck", "A concise pitch deck with a consistent layout and clear visual hierarchy."]
+        ]
+      },
+      Development: {
+        description: "Builds clear, responsive products and leaves teams with a reliable handoff.",
+        price: "₹3,000–₹15,000 / project",
+        features: ["Responsive websites and landing pages", "Web or app feature development", "Testing, bug fixes and handoff"],
+        works: [
+          ["Website", "Event landing page for {school}", "A mobile-friendly page with the event schedule, venue and registration details."],
+          ["Web app", "Inventory tool for a local shop", "A simple stock dashboard with search, edit and low-stock status."],
+          ["Registration", "Workshop signup flow in {city}", "A streamlined registration form with confirmation and clear next steps."]
+        ]
+      },
+      "Video & photo": {
+        description: "Creates thoughtful edits and images that make events and products easy to share.",
+        price: "₹1,500–₹8,000 / project",
+        features: ["Short-form reels and event edits", "Color correction, captions and sound", "Exports sized for social platforms"],
+        works: [
+          ["Event film", "{school} fest highlight reel", "A fast-paced recap edited for reels, with captions and music sync."],
+          ["Photo set", "{city} cafe launch shoot", "A compact set of warm, edited photos for menus and social posts."],
+          ["Social video", "{name}'s creator reel pack", "Three short edits with clean cuts, subtitles and platform-ready framing."]
+        ]
+      },
+      Marketing: {
+        description: "Helps small teams plan consistent content and reach the right local audience.",
+        price: "₹2,000–₹7,500 / project",
+        features: ["Social content calendars and campaigns", "Platform-specific captions and creative", "Engagement and performance summaries"],
+        works: [
+          ["Content plan", "{city} cafe monthly calendar", "A practical month of post ideas, captions and suggested publishing dates."],
+          ["Launch campaign", "{school} startup launch week", "A coordinated set of stories and posts introducing a student-led product."],
+          ["Local promotion", "{name}'s neighborhood campaign", "A local-first promotion plan with audience, message and simple measures."]
+        ]
+      },
+      Writing: {
+        description: "Makes useful ideas easy to understand through well-researched, audience-aware writing.",
+        price: "₹800–₹4,000 / project",
+        features: ["Research-backed content and clear briefs", "Website copy, blogs and captions", "English, Hindi or Marathi localization when requested"],
+        works: [
+          ["Editorial", "Founder interview for {school}", "A short, researched profile shaped into a clear story for the campus site."],
+          ["Website copy", "{city} shop product pages", "Concise descriptions and calls to action written in a consistent brand voice."],
+          ["Bilingual copy", "{name}'s event campaign", "Localized event messaging prepared for posters, email and social channels."]
+        ]
+      },
+      Events: {
+        description: "Keeps people, schedules and event-day details moving in the same direction.",
+        price: "₹1,500–₹6,000 / event",
+        features: ["Run-of-show and event logistics", "Volunteer coordination and guest communication", "On-site coordination and post-event follow-up"],
+        works: [
+          ["Speaker event", "{school} speaker evening", "Guest schedules, volunteer roles and a clear event-day run sheet."],
+          ["Campus welcome", "Welcome week in {city}", "A small-team plan covering registrations, room setup and attendee flow."],
+          ["Community event", "{name}'s campus showcase", "A practical checklist for exhibitors, promotion and event close-out."]
+        ]
+      }
+    };
+    const sampleMemberDates = ["Feb 2023", "Jun 2023", "Oct 2023", "Jan 2024", "May 2024", "Sep 2024", "Jan 2025", "Jun 2025"];
+    const sampleResponseTimes = ["Within 1 hour", "Within 2 hours", "Within 4 hours", "Within a day"];
+    const sampleDeliveryDates = ["Yesterday", "2 days ago", "4 days ago", "1 week ago"];
+    const languagesByLocation = {
+      Pune: ["Marathi", "Hindi", "English"],
+      Mumbai: ["Marathi", "Hindi", "English"],
+      Delhi: ["Hindi", "English", "Punjabi"],
+      Bengaluru: ["Kannada", "Hindi", "English"],
+      Pilani: ["Hindi", "English"]
+    };
+
+    function getProfileDetails(person) {
+      const category = profileTemplates[person.category] ? person.category : "Design";
+      const template = profileTemplates[category];
+      const studentIndex = Math.max(0, students.findIndex(student => student.name === person.name));
+      const city = person.location || (person.isMember ? "your community" : person.school || "your campus");
+      const firstName = person.name.split(" ")[0];
+      const isMember = Boolean(person.isMember);
+      const joined = person.memberSince || (isMember ? "Not provided" : sampleMemberDates[studentIndex % sampleMemberDates.length]);
+      const joinedDate = new Date(joined);
+      const memberSince = isMember && !Number.isNaN(joinedDate.getTime())
+        ? joinedDate.toLocaleDateString(undefined, { month: "short", year: "numeric" })
+        : joined;
+      return {
+        description: person.description || `${person.name} is a ${person.role.toLowerCase()} who helps student groups and ${city} businesses turn ideas into finished work. Their focus includes ${person.skills.join(", ")}.`,
+        price: isMember ? "Discuss the project scope" : template.price,
+        features: isMember ? ["Share your experience and availability", ...person.skills] : template.features,
+        works: isMember ? [] : template.works.map(([type, title, description]) => ({
+          type,
+          title: title.replaceAll("{school}", person.school).replaceAll("{city}", city).replaceAll("{name}", firstName),
+          description
+        })),
+        memberSince: isMember ? memberSince : sampleMemberDates[studentIndex % sampleMemberDates.length],
+        responseTime: isMember ? "Not provided" : sampleResponseTimes[studentIndex % sampleResponseTimes.length],
+        lastDelivery: isMember ? "Not provided" : sampleDeliveryDates[studentIndex % sampleDeliveryDates.length],
+        languages: isMember ? person.languages || ["Not provided"] : person.languages || languagesByLocation[city] || ["English", "Hindi"],
+        from: isMember ? person.location || "Not provided" : city,
+        isMember
+      };
     }
 
     function renderPeople() {
@@ -456,6 +632,8 @@
         role: memberProfile.headline || memberProfile.accountType,
         school: memberProfile.organization || memberProfile.location || "PeerConnect member",
         location: memberProfile.location,
+        description: memberProfile.bio,
+        memberSince: memberProfile.updatedAt,
         rating: null,
         reviews: 0,
         skills: memberProfile.skills || [],
@@ -464,28 +642,40 @@
         isMember: true
       } : null;
       const people = localProfile ? [localProfile, ...students] : students;
+      peopleByName.clear();
+      people.forEach(person => peopleByName.set(person.isMember ? "current-member" : person.name, person));
       const matches = people.filter(person => {
-        const text = `${person.name} ${person.role} ${person.school} ${person.location || ""} ${person.skills.join(" ")}`.toLowerCase();
+        const text = `${person.name} ${person.role} ${person.school} ${person.location || ""} ${person.skills.join(" ")} ${person.review || ""}`.toLowerCase();
         const matchesQuery = !query || text.includes(query);
         const matchesCategory = activeCategory === "All skills" || person.category === activeCategory || person.skills.some(skill => skill.toLowerCase().includes(activeCategory.toLowerCase()));
         const matchesLocation = !selectedLocation || (person.location || person.school) === selectedLocation;
         return matchesQuery && matchesCategory && matchesLocation;
       });
-      peopleGrid.innerHTML = matches.length ? matches.map(person => `
-        <article class="person-card">
+      const visiblePeople = matches.slice(0, visibleStudentCount);
+      peopleGrid.innerHTML = matches.length ? visiblePeople.map(person => `
+        <article class="person-card" data-profile-card="${person.isMember ? "current-member" : escapeHtml(person.name)}">
           <div class="card-top">
             <div class="portrait-wrap">${person.isMember
               ? `<span class="portrait" style="display:grid;place-items:center;color:var(--green);background:var(--mint);font-size:20px">${escapeHtml(person.name.charAt(0).toUpperCase())}</span>`
-              : `<img class="portrait" src="${imageUrl(person.image)}" alt="${escapeHtml(person.name)}" loading="lazy"><span class="verified" aria-label="College verified">✓</span>`}</div>
+              : `<img class="portrait" src="${imageUrl(person.image)}" alt="${escapeHtml(person.name)}" loading="lazy"><span class="verified" aria-label="Demo profile">D</span>`}</div>
             <button class="save-button ${saved.has(person.name) ? "saved" : ""}" data-save="${escapeHtml(person.name)}" aria-label="${saved.has(person.name) ? "Remove " + escapeHtml(person.name) + " from saved people" : "Save " + escapeHtml(person.name)}" aria-pressed="${saved.has(person.name)}">
               <svg viewBox="0 0 24 24" fill="${saved.has(person.name) ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.7"><path d="M20.8 8.7c0 5.2-8.8 10-8.8 10S3.2 13.9 3.2 8.7A4.4 4.4 0 0 1 12 6.8a4.4 4.4 0 0 1 8.8 1.9Z"/></svg>
             </button>
           </div>
           <h3>${escapeHtml(person.name)}</h3><div class="role">${escapeHtml(person.role)}</div>
-          <div class="school"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 12v5c3 2.5 7 2.5 10 0v-5"/></svg>${escapeHtml(person.school)}${person.isMember ? " · Your profile" : " · College verified"}</div>
+          <div class="school"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 12v5c3 2.5 7 2.5 10 0v-5"/></svg>${escapeHtml(person.school)}${person.location && !person.school.toLowerCase().includes(person.location.toLowerCase()) ? ` · ${escapeHtml(person.location)}` : ""}${person.isMember ? " · Your profile" : " · Demo profile"}</div>
           <div class="skill-list">${person.skills.map(skill => `<span class="skill">${escapeHtml(skill)}</span>`).join("")}</div>
-          <div class="card-footer"><div class="rating">${person.rating ? `<b>★</b>${person.rating} <small>(${person.reviews})</small>` : "<small>No reviews yet</small>"}</div><div class="availability"><i style="${person.available ? "" : "background:#c9cec9"}"></i>${person.available ? "Available" : "Booked"}</div></div>
+          <div class="card-footer"><div class="rating">${person.rating ? `<b>★</b>${person.rating} <small>/5 · ${person.reviews} reviews</small>` : "<small>No reviews yet</small>"}</div><div class="availability"><i style="${person.available ? "" : "background:#c9cec9"}"></i>${person.available ? "Available" : "Booked"}</div></div>
+          <p class="review-quote">${person.review ? `“${escapeHtml(person.review)}”` : "No written review yet."}</p>
+          <button class="profile-open-button" type="button" data-profile-open="${person.isMember ? "current-member" : escapeHtml(person.name)}">View full profile →</button>
         </article>`).join("") : `<div class="empty-state">No students match that search yet. Try another skill or location.</div>`;
+      document.querySelector("#student-results-count").textContent = matches.length
+        ? `Showing ${visiblePeople.length} of ${matches.length} students`
+        : "No students found";
+      document.querySelector("#show-more").hidden = matches.length <= visibleStudentCount;
+      document.querySelector("#show-more").textContent = matches.length > visibleStudentCount
+        ? `More students (${matches.length - visibleStudentCount}) →`
+        : "More students";
     }
 
     function renderProjects() {
@@ -529,9 +719,16 @@
     document.querySelectorAll(".category").forEach(button => button.addEventListener("click", () => {
       document.querySelector(".category.selected")?.classList.remove("selected");
       button.classList.add("selected");
+      document.querySelectorAll(".category").forEach(category => category.setAttribute("aria-pressed", String(category === button)));
       activeCategory = button.dataset.category;
+      visibleStudentCount = 12;
       renderPeople();
     }));
+
+    document.querySelector("#show-more").addEventListener("click", () => {
+      visibleStudentCount += 12;
+      renderPeople();
+    });
 
     document.querySelectorAll("[data-project-type]").forEach(button => button.addEventListener("click", () => {
       document.querySelector(".project-tools .selected")?.classList.remove("selected");
@@ -540,14 +737,21 @@
       renderProjects();
     }));
 
-    document.querySelector("#search-form").addEventListener("submit", event => {
-      event.preventDefault();
+    function applySearchFilters() {
       query = document.querySelector("#search-input").value.trim().toLowerCase();
       selectedLocation = document.querySelector("#location-filter").value;
+      visibleStudentCount = 12;
       renderPeople();
       renderProjects();
+    }
+
+    document.querySelector("#search-form").addEventListener("submit", event => {
+      event.preventDefault();
+      applySearchFilters();
       document.querySelector("#talent").scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    document.querySelector("#search-input").addEventListener("input", applySearchFilters);
+    document.querySelector("#location-filter").addEventListener("change", applySearchFilters);
 
     document.addEventListener("click", event => {
       const saveButton = event.target.closest("[data-save]");
@@ -555,6 +759,21 @@
         const name = saveButton.dataset.save;
         saved.has(name) ? saved.delete(name) : saved.add(name);
         renderPeople();
+        return;
+      }
+      const hireButton = event.target.closest("[data-hire]");
+      if (hireButton) {
+        openHireModal(hireButton.dataset.hire);
+        return;
+      }
+      const profileButton = event.target.closest("[data-profile-open]");
+      const profileCard = event.target.closest("[data-profile-card]");
+      const profileName = profileButton?.dataset.profileOpen
+        || (profileCard && !event.target.closest("button, a, input") ? profileCard.dataset.profileCard : "");
+      if (profileName) {
+        const person = peopleByName.get(profileName);
+        if (person) openProfileModal(person);
+        return;
       }
       const applyButton = event.target.closest("[data-apply]");
       if (applyButton) openModal("apply", applyButton.dataset.apply);
@@ -583,6 +802,12 @@
         ["Your name", "text", "Your name", true], ["Email address", "email", "you@college.edu", true],
         ["A short note", "textarea", "Share a little about why you’re a good fit.", true]
       ], "Send interest"],
+      hire: ["Hire a student", "Tell them what you need and when you need it.", [
+        ["Your name", "text", "Your name", true], ["Email address", "email", "you@college.edu", true],
+        ["Project brief", "textarea", "Describe the work, deliverables and timeline.", true],
+        ["Budget range", "text", "Project budget (optional)", false],
+        ["Preferred timeline", "text", "e.g. 2 weeks", false]
+      ], "Send hire request"],
       studentPlan: ["Start Student Plus · ₹99/month", "Get featured in relevant searches and see who's discovering your profile. Monthly plan; cancel anytime.", [
         ["Email address", "email", "you@college.edu", true]
       ], "Continue to payment"],
@@ -593,12 +818,23 @@
 
     const modal = document.querySelector("#modal-backdrop");
     const form = document.querySelector("#modal-form");
+    const profileDetail = document.querySelector("#profile-detail");
     let currentModal = "";
+    let currentHiree = "";
+    let currentHirePrice = "";
     function openModal(type, projectTitle = "") {
       currentModal = type;
       const [title, description, fields, submit] = modalCopy[type];
-      document.querySelector("#modal-title").textContent = type === "apply" ? projectTitle : title;
-      document.querySelector("#modal-description").textContent = description;
+      modal.classList.remove("profile-open");
+      profileDetail.hidden = true;
+      profileDetail.innerHTML = "";
+      form.hidden = false;
+      document.querySelector("#modal-title").textContent = type === "apply"
+        ? projectTitle
+        : type === "hire" ? `Hire ${currentHiree}` : title;
+      document.querySelector("#modal-description").textContent = type === "hire"
+        ? `A typical project starts at ${currentHirePrice}. Share your brief and preferred timeline to request a final quote.`
+        : description;
       form.innerHTML = fields.map(([label, kind, value, required], index) => {
         const id = `modal-field-${index}`;
         let control;
@@ -611,7 +847,67 @@
       form.querySelector("input, select, textarea")?.focus();
     }
 
-    function closeModal() { modal.classList.remove("open"); }
+    function openProfileModal(person) {
+      const details = getProfileDetails(person);
+      currentModal = "profile";
+      form.hidden = true;
+      profileDetail.hidden = false;
+      modal.classList.add("profile-open", "open");
+      document.querySelector("#modal-title").textContent = person.name;
+      document.querySelector("#modal-description").textContent = person.role;
+      const avatar = person.image
+        ? `<img src="${imageUrl(person.image, 128)}" alt="">`
+        : escapeHtml(person.name.charAt(0).toUpperCase());
+      const services = details.features.map(feature => `<li>${escapeHtml(feature)}</li>`).join("");
+      const skills = person.skills.map(skill => `<span class="skill">${escapeHtml(skill)}</span>`).join("");
+      const works = details.works.length ? details.works.map(work => `
+        <article class="work-sample">
+          <div class="work-art"><span>${escapeHtml(work.type)}</span></div>
+          <div class="work-copy"><strong>${escapeHtml(work.title)}</strong><p>${escapeHtml(work.description)}</p></div>
+        </article>`).join("") : `<p class="demo-note">No portfolio items have been added to this profile yet.</p>`;
+      const review = person.review
+        ? `<div class="detail-review"><strong>★ ${escapeHtml(person.rating || "—")}/5 · ${escapeHtml(person.reviews || 0)} reviews</strong><p>“${escapeHtml(person.review)}”</p><small>Sample client feedback</small></div>`
+        : `<p class="demo-note">No written reviews yet.</p>`;
+      profileDetail.innerHTML = `
+        <div class="detail-intro">
+          <div class="detail-avatar">${avatar}</div>
+        <div><div class="school">${escapeHtml(person.school)}${person.location && !person.school.toLowerCase().includes(person.location.toLowerCase()) ? ` · ${escapeHtml(person.location)}` : ""}</div></div>
+        </div>
+        <p class="demo-note">${details.isMember
+          ? "This is your profile preview. Add real samples and preferences in profile settings."
+          : "Demo profile: portfolio items, activity details, pricing, ratings and feedback are illustrative sample content."}</p>
+        <div class="detail-price">
+          <div><span>Project-based starting price</span><strong>${escapeHtml(details.price)}</strong><small>Final quote depends on scope, timeline and deliverables.</small></div>
+          ${details.isMember
+            ? `<a class="outline-button" href="profile.html">Open your dashboard</a>`
+            : `<button class="primary-button" type="button" data-hire="${escapeHtml(person.name)}">Hire ${escapeHtml(person.name)} <span aria-hidden="true">→</span></button>`}
+        </div>
+        <div class="detail-facts">
+          <div class="detail-fact"><span>From</span><strong>${escapeHtml(details.from)}</strong></div>
+          <div class="detail-fact"><span>Member since</span><strong>${escapeHtml(details.memberSince)}</strong></div>
+          <div class="detail-fact"><span>Avg. response time</span><strong>${escapeHtml(details.responseTime)}</strong></div>
+          <div class="detail-fact"><span>Last delivery</span><strong>${escapeHtml(details.lastDelivery)}</strong></div>
+          <div class="detail-fact"><span>Languages</span><strong>${escapeHtml(details.languages.join(", "))}</strong></div>
+          <div class="detail-fact"><span>Availability</span><strong>${person.available ? "Available for work" : details.isMember ? "Update in your settings" : "Currently booked"}</strong></div>
+        </div>
+        <section><h3>About</h3><p class="detail-description">${escapeHtml(details.description)}</p></section>
+        <section><h3>What they provide</h3><ol class="detail-features">${services}</ol><div class="detail-skills"><strong>Skills</strong>${skills}</div></section>
+        <section><h3>Previous work <span class="hint">· Sample portfolio</span></h3><div class="work-grid">${works}</div></section>
+        <section><h3>Ratings &amp; reviews</h3>${review}</section>`;
+      profileDetail.querySelector("button, a")?.focus();
+    }
+
+    function openHireModal(name) {
+      const person = students.find(student => student.name === name);
+      if (!person) return;
+      currentHiree = person.name;
+      currentHirePrice = getProfileDetails(person).price;
+      openModal("hire");
+      const budgetField = form.querySelector("#modal-field-3");
+      if (budgetField) budgetField.placeholder = `Starting at ${currentHirePrice}`;
+    }
+
+    function closeModal() { modal.classList.remove("open", "profile-open"); }
     document.querySelectorAll("[data-open]").forEach(button => button.addEventListener("click", () => openModal(button.dataset.open)));
     document.querySelectorAll("[data-subscription]").forEach(button => button.addEventListener("click", () => {
       openModal(button.dataset.subscription === "student" ? "studentPlan" : "clientPlan");
@@ -632,7 +928,9 @@
         clientPlan: "Checkout isn’t connected yet. Payment setup is needed before subscribing."
       };
       const toast = document.querySelector("#toast");
-      toast.textContent = messages[currentModal];
+      toast.textContent = currentModal === "hire"
+        ? `Your request for ${currentHiree} is ready. Messaging is not connected yet, so it has not been sent.`
+        : messages[currentModal];
       toast.classList.add("show");
       window.setTimeout(() => toast.classList.remove("show"), 3200);
     });
