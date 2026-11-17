@@ -37,16 +37,6 @@
     .field input:focus, .field select:focus, .field textarea:focus { border-color: #85a38d; box-shadow: 0 0 0 3px #edf3ee; }
     .field textarea { min-height: 76px; resize: vertical; line-height: 1.5; }
     .hint { color: #929991; font-size: 9px; font-weight: 450; line-height: 1.5; }
-    .section-title { margin: 23px 0 13px; font-size: 13px; }
-    .privacy { display: grid; gap: 9px; margin-top: 15px; padding: 13px; background: #f8faf7; border-radius: 7px; }
-    .check-row { display: flex; align-items: flex-start; gap: 8px; color: #687269; font-size: 10px; line-height: 1.45; }
-    .check-row input { margin: 1px 0 0; accent-color: var(--green); }
-    .upload-box { padding: 15px; background: #f8faf7; border: 1px dashed #d8e2d8; border-radius: 8px; }
-    .upload-box input { width: 100%; color: #657067; font-size: 10px; }
-    .upload-box .hint { display: block; margin-top: 8px; }
-    .file-list { display: grid; gap: 6px; margin: 11px 0 0; padding: 0; list-style: none; }
-    .file-list li { display: flex; justify-content: space-between; gap: 12px; color: #586259; font-size: 10px; }
-    .file-list span:last-child { color: #909890; white-space: nowrap; }
     .actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
     .primary-button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 42px; padding: 0 17px; color: white; background: var(--green); border: 0; border-radius: 7px; font-size: 11px; font-weight: 700; }
     .primary-button:hover { background: var(--green-dark); }
@@ -78,127 +68,54 @@
     <div class="intro">
       <div class="eyebrow">A good first impression starts here</div>
       <h1>Build your profile</h1>
-      <p>Tell people what you’re great at. You can update your details, preferences, and portfolio later from your dashboard.</p>
+      <p>Start with the essentials. You can add skills, preferences, and portfolio work later from your dashboard.</p>
     </div>
     <form class="card" id="create-form">
       <div class="fields">
         <label class="field">Full name <input name="name" autocomplete="name" placeholder="e.g. Jamie Lee" required maxlength="80"></label>
-        <label class="field">I’m joining as
-          <select name="accountType" required>
-            <option value="Student">Student</option>
-            <option value="Local business">Local business</option>
-            <option value="Club or event organiser">Club or event organiser</option>
-          </select>
-        </label>
         <label class="field">Age <input name="age" type="number" min="16" max="100" placeholder="Optional"></label>
         <label class="field">Email <input name="email" type="email" autocomplete="email" placeholder="you@college.edu" required></label>
         <label class="field">Phone / WhatsApp <input name="phone" type="tel" autocomplete="tel" placeholder="Optional"></label>
         <label class="field">College or organisation <input name="organization" placeholder="e.g. Northside College"></label>
-        <label class="field">Your location <input name="location" placeholder="City, campus, or neighbourhood"></label>
         <label class="field">What do you do? <input name="headline" placeholder="e.g. Video editor & event photographer"></label>
-        <label class="field full">Skills <input name="skills" placeholder="Video editing, DSA, event planning"><span class="hint">Separate skills with commas.</span></label>
-        <label class="field full">Interests <input name="interests" placeholder="Music, startups, college events"><span class="hint">What kinds of projects or teams interest you?</span></label>
-        <label class="field">Availability
-          <select name="availability">
-            <option value="Available for work">Available for work</option>
-            <option value="A few hours a week">A few hours a week</option>
-            <option value="Not available right now">Not available right now</option>
-          </select>
-        </label>
-        <label class="field">Portfolio link <input name="portfolio" type="url" placeholder="https://your-work.example"></label>
-        <label class="field full">About you <textarea name="bio" maxlength="500" placeholder="A short introduction, the work you enjoy, or what you’re hoping to learn."></textarea></label>
-      </div>
-      <h2 class="section-title">Add work to your portfolio</h2>
-      <div class="upload-box">
-        <input id="portfolio-files" name="portfolioFiles" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.doc,.docx,.ppt,.pptx">
-        <span class="hint">Upload up to 8 samples (PDFs, images, videos, or office documents). 10 MB per file, 25 MB total.</span>
-        <ul class="file-list" id="selected-files"></ul>
-      </div>
-      <div class="privacy">
-        <label class="check-row"><input name="showAge" type="checkbox"> Show my age on my profile</label>
-        <label class="check-row"><input name="showContact" type="checkbox"> Show my email and phone on my profile</label>
       </div>
       <div class="actions">
         <button class="primary-button" type="submit">Create profile <span aria-hidden="true">→</span></button>
         <span class="status" id="form-status" role="status" aria-live="polite"></span>
       </div>
-      <p class="privacy-note">Your details and uploaded files are stored in this browser. They aren’t shared with other people until PeerConnect has a shared backend.</p>
+      <p class="privacy-note">You can add your profile type, skills, availability, and portfolio from your dashboard after creating your profile. Your details are stored in this browser and aren’t shared with other people yet.</p>
     </form>
   </main>
   <script src="app-data.js"></script>
   <script>
     const form = document.querySelector("#create-form");
-    const fileInput = document.querySelector("#portfolio-files");
     const status = document.querySelector("#form-status");
-    const fileList = document.querySelector("#selected-files");
-    const allowedFileName = /\.(pdf|png|jpe?g|webp|gif|mp4|mov|docx?|pptx?)$/i;
-    const maxFiles = 8;
-    const maxFileSize = 10 * 1024 * 1024;
-    const maxTotalSize = 25 * 1024 * 1024;
-
-    function formatSize(bytes) {
-      return bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-    }
-
-    function validateFiles(files) {
-      if (files.length > maxFiles) return `Choose no more than ${maxFiles} files.`;
-      if (files.some(file => !allowedFileName.test(file.name))) return "Use PDF, image, video, or Office document files.";
-      if (files.some(file => file.size > maxFileSize)) return "Each portfolio file must be 10 MB or smaller.";
-      if (files.reduce((total, file) => total + file.size, 0) > maxTotalSize) return "Portfolio uploads must total 25 MB or less.";
-      return "";
-    }
-
-    function escapeHtml(value) {
-      return String(value).replace(/[&<>"']/g, character => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-      })[character]);
-    }
-
-    fileInput.addEventListener("change", () => {
-      const files = [...fileInput.files];
-      const error = validateFiles(files);
-      status.textContent = error;
-      status.classList.toggle("error", Boolean(error));
-      fileList.innerHTML = files.map(file => `<li><span>${escapeHtml(file.name)}</span><span>${formatSize(file.size)}</span></li>`).join("");
-    });
-
-    function splitList(value) {
-      return value.split(",").map(item => item.trim()).filter(Boolean).slice(0, 20);
-    }
 
     form.addEventListener("submit", async event => {
       event.preventDefault();
       status.textContent = "";
       status.classList.remove("error");
-      const files = [...fileInput.files];
-      const fileError = validateFiles(files);
-      if (fileError) {
-        status.textContent = fileError;
-        status.classList.add("error");
-        return;
-      }
-
       const data = new FormData(form);
       const profile = {
         name: String(data.get("name")).trim(),
-        accountType: data.get("accountType"),
+        accountType: "Student",
         age: data.get("age") ? Number(data.get("age")) : null,
         email: String(data.get("email")).trim(),
         phone: String(data.get("phone")).trim(),
         organization: String(data.get("organization")).trim(),
-        location: String(data.get("location")).trim(),
         headline: String(data.get("headline")).trim(),
-        skills: splitList(String(data.get("skills") || "")),
-        interests: splitList(String(data.get("interests") || "")),
-        availability: data.get("availability"),
-        portfolio: String(data.get("portfolio")).trim(),
-        bio: String(data.get("bio")).trim(),
-        showAge: data.get("showAge") === "on",
-        showContact: data.get("showContact") === "on"
+        location: "",
+        skills: [],
+        interests: [],
+        availability: "Available for work",
+        portfolio: "",
+        bio: "",
+        showAge: false,
+        showContact: false
       };
 
       try {
-        await PeerConnectDB.createProfile(profile, files);
+        await PeerConnectDB.createProfile(profile);
         window.location.href = "profile.html?created=1";
       } catch (error) {
         status.textContent = error.message || "Could not create your profile.";
